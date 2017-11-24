@@ -12,11 +12,43 @@
             border-collapse: collapse;
         }
     </style>
+    <script type="text/javascript" src="webjars/jquery/2.1.4/jquery.min.js"></script>
 </head>
 <body>
+
+<script type="text/javascript">
+    function removeTask(row, personPassed, taskPassed) {
+        $(document).ready(function () {
+            $.ajax({
+                type: "POST",
+                url: "/todolist/removeTask",
+                data: {
+                    person: personPassed,
+                    task: taskPassed
+                },
+                success: function (result) {
+                    if (result === "success") {
+                        deleteRow(row, "list of tasks");
+                    } else {
+                        $("#target").html("error");
+                    }
+                }
+            });
+        })
+    }
+
+    function deleteRow(row, table) {
+        var i;
+        i = row.parentNode.parentNode.rowIndex;
+        document.getElementById(table).deleteRow(i);
+    }
+</script>
+
 <h1>This is TODO List</h1>
 
-<table>
+<div id="target"></div>
+
+<table id="list of tasks">
     <tr>
         <th>Responsible person</th>
         <th>Task</th>
@@ -26,12 +58,8 @@
             <td>${task.getPerson()}</td>
             <td>${task.getTask()}</td>
             <td>
-                <form action="${pageContext.servletContext.contextPath}/removeTask" method="post">
-
-                    <input type="hidden" name="person" value="${task.getPerson()}"/>
-                    <input type="hidden" name="task" value="${task.getTask()}"/>
-                    <input type="submit" value="Remove task"/>
-                </form>
+                <input type="button" value="Remove task"
+                       onclick="removeTask(this,'${task.getPerson()}','${task.getTask()}' )">
             </td>
         </tr>
     </c:forEach>
@@ -49,5 +77,6 @@
     </label> <br>
     <input type="submit" value="Submit"/>
 </form>
+
 
 </body>

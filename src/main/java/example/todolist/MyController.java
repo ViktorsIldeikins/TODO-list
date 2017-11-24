@@ -7,6 +7,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 
 @Controller
@@ -28,11 +29,14 @@ public class MyController {
         return "mainList";
     }
 
-    @RequestMapping(value = "/removeTask", method = RequestMethod.POST)
-    public String removeTask(@RequestParam("person") String person, @RequestParam("task") String task) {
-        list.removeTask(person, task);
-        return "redirect:/test";
+    @RequestMapping(value="/removeTask", method = RequestMethod.POST)
+    @ResponseBody
+    public String remove(@RequestParam("person") String person, @RequestParam("task") String task){
+        System.out.println("removing-->"+ person+" "+task);
+        list.removeTask(person,task);
+        return "success";
     }
+
 
     @RequestMapping(value = "/addTask", method = RequestMethod.POST)
     public String addTask(@RequestParam("person") String person, @RequestParam("task") String task) {
