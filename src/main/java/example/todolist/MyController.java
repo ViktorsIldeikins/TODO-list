@@ -29,17 +29,26 @@ public class MyController {
         return "mainList";
     }
 
-    @RequestMapping(value="/removeTask", method = RequestMethod.POST)
+    @RequestMapping(value = "/removeTask", method = RequestMethod.POST)
     @ResponseBody
-    public String remove(@RequestParam("person") String person, @RequestParam("task") String task){
-        System.out.println("removing-->"+ person+" "+task);
-        list.removeTask(person,task);
+    public String remove(@RequestParam("person") String person, @RequestParam("task") String task) {
+        System.out.println("removing-->" + person + " " + task);
+        list.removeTask(person, task);
         return "success";
     }
 
 
     @RequestMapping(value = "/addTask", method = RequestMethod.POST)
+    @ResponseBody
     public String addTask(@RequestParam("person") String person, @RequestParam("task") String task) {
+        list.addTask(person, task);
+        return "success";
+    }
+
+
+    //old controller
+    @RequestMapping(value = "/addTask2", method = RequestMethod.POST)
+    public String addTask2(@RequestParam("person") String person, @RequestParam("task") String task) {
         list.addTask(person, task);
         return "redirect:/test";
     }
