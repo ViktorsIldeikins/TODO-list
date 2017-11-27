@@ -21,15 +21,15 @@
 
 <div id="target"></div>
 
-<table id="list of tasks">
+<table id="listOfTasks">
     <tr>
         <th>Responsible person</th>
         <th>Task</th>
     </tr>
     <c:forEach var="task" items="${list.getList()}">
-        <tr>
-            <td>${task.getPerson()}</td>
-            <td>${task.getTask()}</td>
+        <tr class="taskRow">
+            <td id="personCell">${task.getPerson()}</td>
+            <td id="taskCell">${task.getTask()}</td>
             <td>
                 <input type="button" value="Remove task"
                        onclick="removeTask(this,'${task.getPerson()}','${task.getTask()}' )">
@@ -41,13 +41,14 @@
 <h3>Add new task</h3>
 <%--<form action="${pageContext.servletContext.contextPath}/addTask" method="POST">--%>
 <form id="newTaskForm" onsubmit="addTask()">
+    <span id="generalErrorField"></span> <br>
     <label>
         Person:
-        <input id="personField" type="text" name="person"/>
+        <input id="personField" type="text" name="person"/> <span id="personErrorField"> </span>
     </label> <br>
     <label>
         Task:
-        <input id="taskField" type="text" name="task"/>
+        <input id="taskField" type="text" name="task"/> <span id="taskErrorField"> </span>
     </label> <br>
     <input type="submit"/>
 </form>
@@ -55,32 +56,67 @@
 
 <script type="text/javascript">
     $("#newTaskForm").submit(function (e) {
-        e.preventDefault();
-    })
+        e.preventDefault();     //To prevent reloading page when submitting
+    });
+
+    //checks if same task exists for the same person
+    //currently does not work :(
+    function duplicateTask(person,task){
+        var allTasks=document.getElementById("listOfTasks").getElementsByClassName("taskRow");
+        $("#target").text(allTasks.size);
+        console.log("size is "+allTasks.size+"  tasks:"+allTasks);
+        for(var i=0;i<allTasks.size;i++) {
+            if ((allTasks[i].getElementById("taskCell").value === task) && (allTasks[i].getElementById("personCell").value === person)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    function validateInputForm() {
+        $("#personErrorField").empty();
+        $("#taskErrorField").empty();
+        $("#generalErrorField").empty();
+        var result = true;
+        if ($("#personField").val() === "") {
+            $("#personErrorField").text("Enter responsible person");
+            result = false;
+        }
+        if ($("#taskField").val() === "") {
+            $("#taskErrorField").text("Enter task");
+            result = false;
+        }
+        if(result&&duplicateTask($("#personField").val(),$("#taskField").val())){
+            $("#generalErrorField").text("This task for this person already exists");
+            result=false;
+        }
+        return result;
+    }
 
     function addTask() {
-        $(document).ready(function () {
-            $.ajax({
-                type: "POST",
-                url: "/todolist/addTask",
-                data: $("#newTaskForm").serialize()
-            }).done(function (result) {
-                if (result === "success") {
-                    var table = document.getElementById("list of tasks");
-                    var row = table.insertRow(table.rows.length);
-                    row.insertCell(0).innerHTML = document.getElementById("personField").value;
-                    row.insertCell(1).innerHTML = document.getElementById("taskField").value;
-                    row.insertCell(2).innerHTML = "<input type=\"button\" value=\"Remove task\"\n" +
-                        "onclick=\"removeTask(this,'" + document.getElementById("personField").value + "','" + document.getElementById("taskField").value + "' )\">"
-                }
-            }).fail(function (xhr, status, errThrowm) {
-                $("#target").text("...ups....something went wrong");
-            }).always(function (xhr, status) {
-                $("#target").text("finished work");
-                document.getElementById("personField").value = "";
-                document.getElementById("taskField").value = "";
+        if (validateInputForm()) {
+            $(document).ready(function () {
+                $.ajax({
+                    type: "POST",
+                    url: "/todolist/addTask",
+                    data: $("#newTaskForm").serialize()
+                }).done(function (result) {
+                    if (result === "success") {
+                        var table = $("#listOfTasks")[0];
+                        var row = table.insertRow(table.rows.length);
+                        row.insertCell(0).innerHTML = $("#personField").val();
+                        row.insertCell(1).innerHTML = $("#taskField").val();
+                        row.insertCell(2).innerHTML = "<input type=\"button\" value=\"Remove task\"\n" +
+                            "onclick=\"removeTask(this,'" + $("#personField").val() + "','" + $("#taskField").val() + "' )\">"
+                    }
+                }).fail(function (xhr, status, errThrowm) {
+                    $("#target").text("...ups....something went wrong");
+                }).always(function (xhr, status) {
+                    document.getElementById("personField").value = "";
+                    document.getElementById("taskField").value = "";
+                })
             })
-        })
+        }
     }
 
     function removeTask(row, personPassed, taskPassed) {
@@ -94,7 +130,7 @@
                 },
                 success: function (result) {
                     if (result === "success") {
-                        deleteRow(row, "list of tasks");
+                        deleteRow(row, "listOfTasks");
                     } else {
                         $("#target").html("error");
                     }
