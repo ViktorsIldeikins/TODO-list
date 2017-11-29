@@ -60,13 +60,10 @@
     });
 
     //checks if same task exists for the same person
-    //currently does not work :(
     function duplicateTask(person,task){
         var allTasks=document.getElementById("listOfTasks").getElementsByClassName("taskRow");
-        $("#target").text(allTasks.size);
-        console.log("size is "+allTasks.size+"  tasks:"+allTasks);
-        for(var i=0;i<allTasks.size;i++) {
-            if ((allTasks[i].getElementById("taskCell").value === task) && (allTasks[i].getElementById("personCell").value === person)) {
+        for(i=0;i<allTasks.length;i++) {
+            if ((allTasks[i].getElementsByTagName("td")[1].innerHTML === task) && (allTasks[i].getElementsByTagName("td")[0].innerHTML === person)) {
                 return true;
             }
         }
@@ -104,6 +101,7 @@
                     if (result === "success") {
                         var table = $("#listOfTasks")[0];
                         var row = table.insertRow(table.rows.length);
+                        row.setAttribute("class","taskRow");
                         row.insertCell(0).innerHTML = $("#personField").val();
                         row.insertCell(1).innerHTML = $("#taskField").val();
                         row.insertCell(2).innerHTML = "<input type=\"button\" value=\"Remove task\"\n" +
