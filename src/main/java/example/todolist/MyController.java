@@ -4,22 +4,24 @@ package example.todolist;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 
 @Controller
+@SessionAttributes("list")
 public class MyController {
 
-    @Autowired
-    private TaskList list;
+    private final TaskList list;
 
-    @RequestMapping("")
+    @Autowired
+    public MyController(TaskList list) {
+        this.list = list;
+    }
+
+    @RequestMapping("/")
     public String init() {
-        list.getList().add(new Task("Jimmy", "has to delete this test task"));
-        list.getList().add(new Task("JimmyLongName", "check that table works"));
+        list.getList().add(new Task("Jimmy", "has to delete this test task", 3));
+        list.getList().add(new Task("JimmyLongName", "check that table works", 5));
         return "redirect:/test";
     }
 
@@ -40,17 +42,11 @@ public class MyController {
 
     @RequestMapping(value = "/addTask", method = RequestMethod.POST)
     @ResponseBody
-    public String addTask(@RequestParam("person") String person, @RequestParam("task") String task) {
-        list.addTask(person, task);
+    public String addTask(@RequestParam("person") String person, @RequestParam("task") String task,
+                          @RequestParam(value="coffee", required=false, defaultValue = "0") int amountOfCoffeeCups) {
+        list.addTask(person, task, amountOfCoffeeCups);
         return "success";
     }
 
-
-    //old controller
-    @RequestMapping(value = "/addTask2", method = RequestMethod.POST)
-    public String addTask2(@RequestParam("person") String person, @RequestParam("task") String task) {
-        list.addTask(person, task);
-        return "redirect:/test";
-    }
 
 }

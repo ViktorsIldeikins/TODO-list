@@ -4,14 +4,15 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Component
 public class TaskList {
 
     private List<Task> list;
 
-    public TaskList(){
-        list=new ArrayList<>();
+    public TaskList() {
+        list = new ArrayList<>();
     }
 
     public TaskList(List<Task> list) {
@@ -22,12 +23,8 @@ public class TaskList {
         return list;
     }
 
-    public void setList(List<Task> list) {
-        this.list = list;
-    }
-
     public void removeTask(String person, String task) {
-        list.removeIf(t -> (t.getPerson().equals(person))&&(t.getTask().equals(task)));
+        list.removeIf(t -> (t.getPerson().equals(person)) && (t.getTask().equals(task)));
     }
 
 
@@ -36,8 +33,20 @@ public class TaskList {
         return "is this toString?";
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TaskList taskList = (TaskList) o;
+        return Objects.equals(list, taskList.list);
+    }
 
-    public void addTask(String person, String task) {
-        list.add(new Task(person,task));
+    @Override
+    public int hashCode() {
+        return Objects.hash(list);
+    }
+
+    public void addTask(String person, String task, int amountOfCoffeeCups) {
+        list.add(new Task(person, task, amountOfCoffeeCups));
     }
 }

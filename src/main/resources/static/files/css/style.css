@@ -1,0 +1,28 @@
+#listOfTasks {
+    border-collapse: collapse;
+    width:100%;
+}
+
+#listOfTasks th {
+    text-align: left;
+    border: 2px solid #d6882d;
+    padding: 8px;
+    background-color: #5a42ba;
+    color:#fcffff
+}
+#listOfTasks td{
+    border: 1px solid #d6882d;
+    padding: 4px;
+}
+
+#listOfTasks tr:hover {
+    background-color: #8efffd
+}
+
+#listOfTasks input {
+    background-color:#31e227;
+    border-style: groove;
+    border-radius: 4px;
+}
+
+
