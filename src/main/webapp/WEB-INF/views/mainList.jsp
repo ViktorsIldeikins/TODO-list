@@ -32,7 +32,17 @@
         <tr class="taskRow">
             <td id="personCell">${task.getPerson()}</td>
             <td id="taskCell">${task.getTask()}</td>
-            <td>${task.getAmountOfCoffeeCups()}</td>
+            <td>
+                <c:set value="${task.getAmountOfCoffeeCups()}" var="coffee"/>
+                <c:choose>
+                    <c:when test="${coffee == 0 }" >
+                        no estimate
+                    </c:when>
+                    <c:otherwise>
+                        ${task.getAmountOfCoffeeCups()}
+                    </c:otherwise>
+                </c:choose>
+            </td>
             <td>
                 <input type="button" value="Remove task"
                        onclick="removeTask(this,'${task.getPerson()}','${task.getTask()}' )">
