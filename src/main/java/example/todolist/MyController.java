@@ -34,12 +34,6 @@ public class MyController {
 		return "mainList";
 	}
 
-	@RequestMapping("/newTable")
-	public String newTable() {
-		repository.newTable();
-		return "redirect:/test";
-	}
-
 	@RequestMapping(value = "/removeTask", method = POST)
 	@ResponseBody
 	public String remove(@RequestParam("person") String person, @RequestParam("task") String task) {

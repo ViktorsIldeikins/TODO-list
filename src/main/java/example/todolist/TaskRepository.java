@@ -18,9 +18,10 @@ public class TaskRepository {
 	public TaskRepository(TaskMapper taskMapper){
 		this.taskMapper=taskMapper;
 		//TODO initialize table
+		newTable();
 	}
 
-	public void newTable(){
+	private void newTable(){
 		taskMapper.createTable();
 	}
 

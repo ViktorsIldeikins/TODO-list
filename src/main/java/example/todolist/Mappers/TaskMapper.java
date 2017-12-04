@@ -23,7 +23,14 @@ public interface TaskMapper {
 	@Delete("Delete from tasks where (person=#{person})and(task=#{task})")
 	void remove(Task task);
 
-	@Insert("create table if not exists \"Tasks\"(ID int(11) ")
+	@Insert("CREATE TABLE IF Not EXISTS Tasks\n" +
+			"(\n" +
+			"    id int(10) NOT NULL AUTO_INCREMENT,\n" +
+			"    person varchar(100) NOT NULL,\n" +
+			"    task VARCHAR (100) NOT NULL,\n" +
+			"    amountOfCoffeeCups int(10) DEFAULT 0,\n" +
+			"    PRIMARY KEY (id)\n" +
+			");")
 //	@Insert(init.sql)
 	void createTable();
 
