@@ -2,6 +2,7 @@ package example.todolist.Mappers;
 
 
 import example.todolist.Task;
+
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
 
@@ -21,5 +22,9 @@ public interface TaskMapper {
 
 	@Delete("Delete from tasks where (person=#{person})and(task=#{task})")
 	void remove(Task task);
+
+	@Insert("create table if not exists \"Tasks\"(ID int(11) ")
+//	@Insert(init.sql)
+	void createTable();
 
 }

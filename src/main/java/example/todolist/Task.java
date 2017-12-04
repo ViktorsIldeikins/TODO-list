@@ -18,7 +18,6 @@ public class Task {
 		this.amountOfCoffeeCups = amountOfCoffeeCups;
 	}
 
-
 	public int getId() {
 		return id;
 	}
@@ -42,6 +41,7 @@ public class Task {
 	public String getPerson() {
 		return person;
 	}
+
 
 	@Override
 	public String toString() {

@@ -6,46 +6,54 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
+
 
 @Controller
 @SessionAttributes("list")
 public class MyController {
 
-	private final TaskList list;
+	private final TaskRepository repository;
 
 	@Autowired
-	public MyController(TaskList list) {
-		this.list = list;
+	public MyController(TaskRepository repository) {
+		this.repository = repository;
 	}
 
 	@RequestMapping("/")
 	public String init() {
-		list.getList().add(new Task("Jimmy", "has to delete this test task", 3));
-		list.getList().add(new Task("JimmyLongName", "check that table works", 5));
+		repository.addTask("Jimmy", "has to delete this test task", 3);
+		repository.addTask("JimmyLongName", "check that table works", 5);
 		return "redirect:/test";
 	}
 
 	@RequestMapping("/test")
 	public String testJsp(ModelMap model) {
-		model.addAttribute("list", list);
-		list.getList().forEach(t-> System.out.println(t.toString()));
+		model.addAttribute("list", repository);
+		repository.getList().forEach(t-> System.out.println(t.toString()));
 		return "mainList";
 	}
 
-	@RequestMapping(value = "/removeTask", method = RequestMethod.POST)
+	@RequestMapping("/newTable")
+	public String newTable() {
+		repository.newTable();
+		return "redirect:/test";
+	}
+
+	@RequestMapping(value = "/removeTask", method = POST)
 	@ResponseBody
 	public String remove(@RequestParam("person") String person, @RequestParam("task") String task) {
 		System.out.println("removing-->" + person + " " + task);
-		list.removeTask(person, task);
+		repository.removeTask(person, task);
 		return "success";
 	}
 
 
-	@RequestMapping(value = "/addTask", method = RequestMethod.POST)
+	@RequestMapping(value = "/addTask", method = POST)
 	@ResponseBody
 	public String addTask(@RequestParam("person") String person, @RequestParam("task") String task,
-						  @RequestParam(value = "coffee", required = false, defaultValue = "0") int amountOfCoffeeCups) {
-		list.addTask(person, task, amountOfCoffeeCups);
+			@RequestParam(value = "coffee", required = false, defaultValue = "0") int amountOfCoffeeCups) {
+		repository.addTask(person, task, amountOfCoffeeCups);
 		return "success";
 	}
 
