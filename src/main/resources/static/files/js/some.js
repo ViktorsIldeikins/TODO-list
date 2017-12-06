@@ -62,8 +62,11 @@ function addTask() {
 					row.insertCell(0).innerHTML = personField.val();
 					row.insertCell(1).innerHTML = taskField.val();
 					row.insertCell(2).innerHTML = coffeeField.val();
-					row.insertCell(3).innerHTML = "<input type=\"button\" value=\"Remove task\"\n" +
-						"onclick=\"removeTask(this,'" + personField.val() + "','" + taskField.val() + "' )\">"
+                    row.insertCell(3).innerHTML = "<progress value=0 max=" + coffeeField.val() + "></progress>";
+                    row.insertCell(4).innerHTML = "<input type=\"button\" value=\"log consumed coffee cup\" " +
+                        "onclick=\"logCoffeeCup(this.parentElement.parentElement)\"> \n" +
+                        "<input type=\"button\" value=\"Remove task\" " +
+                        "onclick=\"removeTask(this,'${task.getPerson()}','${task.getTask()}' )\">";
 				}
 			}).fail(() => $("#target").text("...ups....something went wrong")
 			).always(() => {
@@ -73,6 +76,26 @@ function addTask() {
 			})
 		})
 	}
+}
+
+function logCoffeeCup(row) {
+    let usedCoffeeCups = row.getElementsByTagName("progress")[0].getAttribute("value");
+    usedCoffeeCups++;
+    $(document).ready(() => {
+        $.ajax({
+            type: "POST",
+            url: "/todolist/taskUpdated",
+            data: {
+                person: row.getElementsByTagName("td")[0].innerText,
+                task: row.getElementsByTagName("td")[1].innerText,
+                usedCoffeeCups: usedCoffeeCups
+            }
+        }).done((result) => {
+            if (result === "success") {
+                row.getElementsByTagName("progress")[0].setAttribute("value", usedCoffeeCups);
+            }
+        })
+    })
 }
 
 function removeTask(row, personPassed, taskPassed) {

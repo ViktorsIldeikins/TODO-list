@@ -8,14 +8,24 @@ public class Task {
 	private String person;
 	private String task;
 	private int amountOfCoffeeCups;
+	private int usedCoffeeCups;
 
 	public Task() {
 	}
 
-	public Task(String person, String task, int amountOfCoffeeCups) {
+	public Task(String person, String task, int amountOfCoffeeCups, int usedCoffeeCups) {
 		this.person = person;
 		this.task = task;
 		this.amountOfCoffeeCups = amountOfCoffeeCups;
+		this.usedCoffeeCups = usedCoffeeCups;
+	}
+
+	public int getUsedCoffeeCups() {
+		return usedCoffeeCups;
+	}
+
+	public void setUsedCoffeeCups(int usedCoffeeCups) {
+		this.usedCoffeeCups = usedCoffeeCups;
 	}
 
 	public int getId() {
@@ -42,7 +52,6 @@ public class Task {
 		return person;
 	}
 
-
 	@Override
 	public String toString() {
 		return "Task{" +
@@ -50,6 +59,7 @@ public class Task {
 				", person='" + person + '\'' +
 				", task='" + task + '\'' +
 				", amountOfCoffeeCups=" + amountOfCoffeeCups +
+				", usedCoffeeCups=" + usedCoffeeCups +
 				'}';
 	}
 

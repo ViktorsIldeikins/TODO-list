@@ -20,6 +20,9 @@ public interface TaskMapper {
 	@SelectKey(statement = "Select Last_Insert_id()", keyProperty ="id", before = false, resultType = Integer.class)
 	void insert(Task task);
 
+	@Update("update tasks set usedCoffeeCups=#{usedCoffeeCups} where (person=#{person})and(task=#{task})")
+	void update(Task task);
+
 	@Delete("Delete from tasks where (person=#{person})and(task=#{task})")
 	void remove(Task task);
 
@@ -29,9 +32,9 @@ public interface TaskMapper {
 			"    person varchar(100) NOT NULL,\n" +
 			"    task VARCHAR (100) NOT NULL,\n" +
 			"    amountOfCoffeeCups int(10) DEFAULT 0,\n" +
+			"    usedCoffeeCups int(10) DEFAULT 0,\n" +
 			"    PRIMARY KEY (id)\n" +
 			");")
-//	@Insert(init.sql)
 	void createTable();
 
 }

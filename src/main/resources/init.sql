@@ -4,5 +4,6 @@ CREATE TABLE IF Not EXISTS Tasks
     person varchar(100) NOT NULL,
     task VARCHAR (100) NOT NULL,
     amountOfCoffeeCups int(10) DEFAULT 0,
+    usedCoffeeCups int(10) DEFAULT 0,
     PRIMARY KEY (id)
 );

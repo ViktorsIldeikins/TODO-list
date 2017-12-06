@@ -7,7 +7,7 @@
 	text-align: left;
 	border: 2px solid #d6882d;
 	padding: 8px;
-	background-color: #5a42ba;
+	background-color: #0001ed;
 	color:#fcffff
 }
 #listOfTasks td{
@@ -24,5 +24,3 @@
 	border-style: groove;
 	border-radius: 4px;
 }
-
-

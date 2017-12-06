@@ -17,7 +17,6 @@ public class TaskRepository {
 	@Autowired
 	public TaskRepository(TaskMapper taskMapper){
 		this.taskMapper=taskMapper;
-		//TODO initialize table
 		newTable();
 	}
 
@@ -30,11 +29,16 @@ public class TaskRepository {
 	}
 
 	public void removeTask(String person, String task) {
-		taskMapper.remove(new Task(person,task,0));
+		taskMapper.remove(new Task(person,task,0,0));
 	}
 
 	public void addTask(String person, String task, int amountOfCoffeeCups) {
-		taskMapper.insert(new Task(person,task,amountOfCoffeeCups));
+		taskMapper.insert(new Task(person,task,amountOfCoffeeCups,0));
+	}
+
+	//TODO implement editing of #amountOfCoffeeCups
+	public void updateTask(String person,String task, int usedCoffeeCups){
+		taskMapper.update(new Task(person,task,0,usedCoffeeCups));
 	}
 
 	@Override

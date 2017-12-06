@@ -20,14 +20,14 @@ public class MyController {
 		this.repository = repository;
 	}
 
-	@RequestMapping("/")
+	@RequestMapping("/testData")
 	public String init() {
 		repository.addTask("Jimmy", "has to delete this test task", 3);
 		repository.addTask("JimmyLongName", "check that table works", 5);
-		return "redirect:/test";
+		return "redirect:/";
 	}
 
-	@RequestMapping("/test")
+	@RequestMapping("/")
 	public String testJsp(ModelMap model) {
 		model.addAttribute("list", repository);
 		repository.getList().forEach(t-> System.out.println(t.toString()));
@@ -42,6 +42,13 @@ public class MyController {
 		return "success";
 	}
 
+	@RequestMapping(value = "/taskUpdated", method = POST)
+	@ResponseBody
+	public String updateTask(@RequestParam("person") String person, @RequestParam("task") String task,
+			@RequestParam("usedCoffeeCups") int usedCoffeeCups) {
+		repository.updateTask(person, task, usedCoffeeCups);
+		return "success";
+	}
 
 	@RequestMapping(value = "/addTask", method = POST)
 	@ResponseBody

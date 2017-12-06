@@ -27,6 +27,8 @@
         <th>Responsible person</th>
         <th>Task</th>
         <th>Estimated complexity in coffee cups</th>
+        <th>Progress</th>
+        <th>Action</th>
     </tr>
     <c:forEach var="task" items="${list.getList()}">
         <tr class="taskRow">
@@ -44,6 +46,11 @@
                 </c:choose>
             </td>
             <td>
+                <progress value="${task.getUsedCoffeeCups()}" max="${task.getAmountOfCoffeeCups()}"></progress>
+            </td>
+            <td>
+                <input type="button" value="log consumed coffee cup"
+                       onclick="logCoffeeCup(this.parentElement.parentElement)">
                 <input type="button" value="Remove task"
                        onclick="removeTask(this,'${task.getPerson()}','${task.getTask()}' )">
             </td>
@@ -65,7 +72,7 @@
     <label>
         Estimated complexity in coffee cups:
         <input id="coffeeField" type="text" name="coffee"/> <span id="coffeeErrorField" style="color:red"> </span>
-    </label>
+    </label> <br>
     <input type="submit"/>
 </form>
 
