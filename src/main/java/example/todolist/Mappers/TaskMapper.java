@@ -28,8 +28,8 @@ public interface TaskMapper {
 
 	@Insert("CREATE TABLE IF Not EXISTS Tasks\n" +
 			"(\n" +
-			"    person varchar[100] NOT NULL,\n" +
-			"    task VARCHAR [100] NOT NULL,\n" +
+			"    person varchar  NOT NULL,\n" +
+			"    task VARCHAR  NOT NULL,\n" +
 			"    amountOfCoffeeCups int DEFAULT 0,\n" +
 			"    usedCoffeeCups int DEFAULT 0\n" +
 			");")
