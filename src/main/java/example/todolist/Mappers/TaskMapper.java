@@ -17,7 +17,7 @@ public interface TaskMapper {
 	List<Task> getAll();
 
 	@Insert("insert into tasks(person,task,amountOfCoffeeCups) values(#{person},#{task},#{amountOfCoffeeCups})")
-	@SelectKey(statement = "Select Last_Insert_id()", keyProperty ="id", before = false, resultType = Integer.class)
+//	@SelectKey(statement = "Select Last_Insert_id()", keyProperty ="id", before = false, resultType = Integer.class)
 	void insert(Task task);
 
 	@Update("update tasks set usedCoffeeCups=#{usedCoffeeCups} where (person=#{person})and(task=#{task})")
