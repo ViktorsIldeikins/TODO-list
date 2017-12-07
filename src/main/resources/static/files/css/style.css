@@ -16,14 +16,16 @@ h1,h3{
 
 #listOfTasks th {
 	text-align: left;
-	border: 2px solid #c85f3c;
+	border: 2px solid #5c61a8;
+	/*border: 2px solid #c85f3c;*/
 	padding: 8px;
-	background-color: #5c61a8;
+	background-color: #a95639;
+	/*background-color: #5c61a8;*/
 	color:#fcffff
 }
 
 #listOfTasks td{
-	border: 1px solid #d36200;
+	border: 1px solid #5c61a8;
 	padding: 4px;
 }
 
@@ -64,4 +66,27 @@ input[type=submit] {
 
 input[type=submit]:hover {
 	background-color: #c76432;
+}
+
+progress {
+	border: #222e42;
+	background: crimson;
+}
+
+progress {
+	color: lightblue;
+}
+
+progress::-webkit-progress-value {
+	background: lightblue;
+}
+
+progress::-webkit-progress-value {
+
+	background: #5c61a8;
+}
+
+progress::-webkit-progress-bar {
+	border: 1px solid #222e42;
+	background: #ffebe1;
 }
