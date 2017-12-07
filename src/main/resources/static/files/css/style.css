@@ -1,3 +1,7 @@
+h1,h3{
+	color: #222e42;
+}
+
 #listOfTasks {
 	border-collapse: collapse;
 	width:100%;
@@ -5,23 +9,23 @@
 
 #listOfTasks th {
 	text-align: left;
-	border: 2px solid #d6882d;
+	border: 2px solid #d36200;
 	padding: 8px;
-	background-color: #0001ed;
+	background-color: #5c61a8;
 	color:#fcffff
 }
 
 #listOfTasks td{
-	border: 1px solid #d6882d;
+	border: 1px solid #d36200;
 	padding: 4px;
 }
 
 #listOfTasks tr:hover {
-	background-color: #8efffd
+	background-color: #efe9c4
 }
 
 #listOfTasks input[type=button] {
-	background-color: #4CAF50;
+	background-color: #ff8a38;
 	color: white;
 	padding: 7px 10px;
 	margin: 2px 2px;
@@ -42,7 +46,7 @@ input[type=text], select {
 
 input[type=submit] {
 	width: 30%;
-	background-color: #4CAF50;
+	background-color: #ff8a38;
 	color: white;
 	padding: 7px 10px;
 	margin: 8px 0;
@@ -52,5 +56,5 @@ input[type=submit] {
 }
 
 input[type=submit]:hover {
-	background-color: #45a049;
+	background-color: #c76432;
 }
