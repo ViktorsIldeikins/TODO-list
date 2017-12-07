@@ -31,7 +31,7 @@ public interface TaskMapper {
 			"    person varchar[100] NOT NULL,\n" +
 			"    task VARCHAR [100] NOT NULL,\n" +
 			"    amountOfCoffeeCups int DEFAULT 0,\n" +
-			"    usedCoffeeCups int DEFAULT 0,\n" +
+			"    usedCoffeeCups int DEFAULT 0\n" +
 			");")
 	void createTable();
 
