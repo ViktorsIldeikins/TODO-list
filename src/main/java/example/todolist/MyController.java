@@ -22,8 +22,8 @@ public class MyController {
 
 	@RequestMapping("/testData")
 	public String init() {
-		repository.addTask("Jimmy", "has to delete this test task", 3);
-		repository.addTask("JimmyLongName", "check that table works", 5);
+		repository.addTask("Jimmy", "has to delete this test task", "Medium",3);
+		repository.addTask("JimmyLongName", "check that table works", "Medium",5);
 		return "redirect:/";
 	}
 
@@ -45,16 +45,16 @@ public class MyController {
 	@RequestMapping(value = "/taskUpdated", method = POST)
 	@ResponseBody
 	public String updateTask(@RequestParam("person") String person, @RequestParam("task") String task,
-			@RequestParam("usedCoffeeCups") int usedCoffeeCups) {
+							 @RequestParam("usedCoffeeCups") int usedCoffeeCups) {
 		repository.updateTask(person, task, usedCoffeeCups);
 		return "success";
 	}
 
 	@RequestMapping(value = "/addTask", method = POST)
 	@ResponseBody
-	public String addTask(@RequestParam("person") String person, @RequestParam("task") String task,
-			@RequestParam(value = "coffee", required = false, defaultValue = "0") int amountOfCoffeeCups) {
-		repository.addTask(person, task, amountOfCoffeeCups);
+	public String addTask(@RequestParam("person") String person, @RequestParam("task") String task, @RequestParam("priority") String priority,
+						  @RequestParam(value = "coffee", required = false, defaultValue = "0") int amountOfCoffeeCups) {
+		repository.addTask(person, task, priority, amountOfCoffeeCups);
 		return "success";
 	}
 

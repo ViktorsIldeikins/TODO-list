@@ -16,8 +16,7 @@ public interface TaskMapper {
 	@Select("select * from tasks")
 	List<Task> getAll();
 
-	@Insert("insert into tasks(person,task,amountOfCoffeeCups) values(#{person},#{task},#{amountOfCoffeeCups})")
-//	@SelectKey(statement = "Select Last_Insert_id()", keyProperty ="id", before = false, resultType = Integer.class)
+	@Insert("insert into tasks(person,task,priority,amountOfCoffeeCups) values(#{person},#{task},#{priority},#{amountOfCoffeeCups})")
 	void insert(Task task);
 
 	@Update("update tasks set usedCoffeeCups=#{usedCoffeeCups} where (person=#{person})and(task=#{task})")
@@ -30,6 +29,7 @@ public interface TaskMapper {
 			"(\n" +
 			"    person varchar  NOT NULL,\n" +
 			"    task VARCHAR  NOT NULL,\n" +
+			"    priority VARCHAR  NOT NULL,\n" +
 			"    amountOfCoffeeCups int DEFAULT 0,\n" +
 			"    usedCoffeeCups int DEFAULT 0\n" +
 			");")
