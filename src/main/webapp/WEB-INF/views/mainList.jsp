@@ -18,7 +18,7 @@
 <body>
 
 
-<h1>This is TODO List</h1>
+<h1>TODO</h1>
 
 <div id="target"></div>
 
