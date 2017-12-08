@@ -13,12 +13,12 @@
     <link rel="stylesheet" type="text/css" href="${css_url}">
 
     <script type="text/javascript" src="webjars/jquery/2.1.4/jquery.min.js"></script>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 
 
-<h1>TODO</h1>
+<h1>This is TODO List</h1>
 
 <div id="target"></div>
 
@@ -36,16 +36,8 @@
             <td id="personCell">${task.getPerson()}</td>
             <td id="taskCell">${task.getTask()}</td>
             <td id="priorityCell">${task.getPriority()}</td>
-            <td>
-                <c:set value="${task.getAmountOfCoffeeCups()}" var="coffee"/>
-                <c:choose>
-                    <c:when test="${coffee == 0 }" >
-                        no estimate
-                    </c:when>
-                    <c:otherwise>
-                        ${task.getAmountOfCoffeeCups()}
-                    </c:otherwise>
-                </c:choose>
+            <td id="complexityCell">
+                    ${task.getAmountOfCoffeeCups()}
             </td>
             <td>
                 <progress value="${task.getUsedCoffeeCups()}" max="${task.getAmountOfCoffeeCups()}"></progress>
